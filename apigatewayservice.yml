@@ -10,13 +10,9 @@ server:
 
 
 spring:
-  main:
-    web-application-type: reactive
   application:
-    name: gateway-service
+    name: api-gateway
   cloud:
-    compatibility-verifier:
-      enabled: false
     gateway:
       globalcors:
         corsConfigurations:
