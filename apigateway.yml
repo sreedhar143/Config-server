@@ -1,57 +1,50 @@
 server:
-    port: 8080
-
+  port: 8080
+  
 spring:
-    application:
-        name: apigateway
-    cloud:
-        gateway:
-            globalcors:
-                corsConfigurations:
-                    '[/**]':
-                        allowedOrigins: "*"
-                        allowedMethods: "*"
-                        allowedHeaders: "*"
-                        exposedHeaders: "*"
-            routes:
-                - id: intervieweeservice
-                  uri: lb://intervieweeservice
-                  predicates:
-                      - Path=/intervieweeservice/**
-                  filters:
-                      - RewritePath=/intervieweeservice(?<segment>/?.*), $\{segment}
-
-                - id: emailservice
-                      uri: lb://emailservice
-                      predicates:
-                          - Path=/emailservice/**
-                      filters:
-                          - RewritePath=/emailservice(?<segment>/?.*), $\{segment}
-
-                - id: authenticationservice
-                  uri: lb://authenticationservice
-                  predicates:
-                      - Path=/authenticationservice/**
-                  filters:
-                      - RewritePath=/authenticationservice(?<segment>/?.*), $\{segment}
-
-                - id: interviewerservice
-                  uri: lb://interviewerservice
-                  predicates:
-                      - Path=/interviewerservice/**
-                  filters:
-                      - RewritePath=/interviewerservice(?<segment>/?.*), $\{segment}
-
-                - id: tagservice
-                  uri: lb://tagservice
-                  predicates:
-                      - Path=/tagservice/**
-                  filters:
-                      - RewritePath=/tagservice(?<segment>/?.*), $\{segment}
-
-                - id: userservice
-                  uri: lb://userservice
-                  predicates:
-                      - Path=/userservice/**
-                  filters:
-                      - RewritePath=/userservice(?<segment>/?.*), $\{segment}
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            exposedHeaders: "*"
+      routes:
+        - id: user-service
+          uri: http://localhost:8090
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - RewritePath=/user-service(?<segment>/?.*), $\{segment}
+        - id: authentication-service
+          uri: http://localhost:8095
+          predicates:
+            - Path=/authentication-service/**
+          filters:
+            - RewritePath=/authentication-service(?<segment>/?.*), $\{segment}
+        - id: email-service
+          uri: http://localhost:8075
+          predicates:
+            - Path=/email-service/**
+          filters:
+            - RewritePath=/email-service(?<segment>/?.*), $\{segment}
+        - id: tag-service
+          uri: http://localhost:8070
+          predicates:
+            - Path=/tag-service/**
+          filters:
+            - RewritePath=/tag-service(?<segment>/?.*), $\{segment}
+        - id: interviewer-service
+          uri: http://localhost:8097
+          predicates:
+            - Path=/interviewer-service/**
+          filters:
+            - RewritePath=/interviewer-service(?<segment>/?.*), $\{segment}
+        - id: interviewee-service
+          uri: http://localhost:8098
+          predicates:
+            - Path=/interviewee-service/**
+          filters:
+            - RewritePath=/interviewee-service(?<segment>/?.*), $\{segment}
