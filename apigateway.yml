@@ -5,6 +5,13 @@ spring:
   
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            exposedHeaders: "*"
       routes:
         - id: user-service
           uri: http://localhost:8090
